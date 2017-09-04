@@ -9,6 +9,7 @@ namespace exchange {
    using currency::CurrencyTokens;
    using EosTokens = eos::Tokens;
 
+   //@abi exchange action cancelbuy cancelsell
    struct OrderID {
       AccountName name    = 0;
       uint64_t    number  = 0;
@@ -16,6 +17,7 @@ namespace exchange {
 
    typedef eos::price<EosTokens,CurrencyTokens>     Price;
 
+   //@abi exchange table
    struct PACKED( Bid ) {
       OrderID            buyer;
       Price              price;
@@ -27,7 +29,8 @@ namespace exchange {
       }
    };
    static_assert( sizeof(Bid) == 32+12, "unexpected padding" );
-
+   
+   //@abi exchange table 
    struct PACKED( Ask ) {
       OrderID          seller;
       Price            price;
@@ -40,6 +43,7 @@ namespace exchange {
    };
    static_assert( sizeof(Ask) == 32+12, "unexpected padding" );
 
+   //@abi exchange table
    struct PACKED( Account ) {
       Account( AccountName o = AccountName() ):owner(o){}
 
@@ -57,9 +61,11 @@ namespace exchange {
    TABLE2(Asks,exchange,exchange,asks,Ask,AsksById,OrderID,AsksByPrice,Price); 
 
 
+   //@abi exchange action buy
    struct BuyOrder : public Bid  { uint8_t fill_or_kill = false; };
+   
+   //@abi exchange action sell
    struct SellOrder : public Ask { uint8_t fill_or_kill = false; };
-
 
    inline Account getAccount( AccountName owner ) {
       Account account(owner);
