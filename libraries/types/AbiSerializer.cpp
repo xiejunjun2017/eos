@@ -138,6 +138,13 @@ namespace eos { namespace types {
       return TypeName(string(type).substr(0, type.size()-2));
    }
 
+   bool AbiSerializer::isBuiltInType( const TypeName& rtype )const {
+      auto type = arrayType(rtype);
+      if( built_in_types.find(type) != built_in_types.end() ) return true;
+      if( typedefs.find(type) != typedefs.end() ) return isBuiltInType( typedefs.find(type)->second );
+      return false;
+   }
+
    bool AbiSerializer::isType( const TypeName& rtype )const {
       auto type = arrayType(rtype);
       if( built_in_types.find(type) != built_in_types.end() ) return true;

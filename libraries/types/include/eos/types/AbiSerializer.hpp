@@ -38,6 +38,7 @@ struct AbiSerializer {
 
    TypeName resolveType( const TypeName& t )const;
    bool isArray( const TypeName& type )const;
+   bool isBuiltInType( const TypeName& type )const;
    bool isType( const TypeName& type )const;
    bool isStruct( const TypeName& type )const;
 
