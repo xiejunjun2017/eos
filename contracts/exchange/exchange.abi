@@ -64,12 +64,37 @@
   ],
   "tables": [{
       "table": "bid",
+      "indextype": "i128i128",
+      "keynames": [
+        "buyer",
+        "price"
+      ],
+      "keytype": [
+        "OrderID",
+        "UInt128"
+      ],
       "type": "Bid"
     },{
       "table": "ask",
+      "indextype": "i128i128",
+      "keynames": [
+        "seller",
+        "price"
+      ],
+      "keytype": [
+        "OrderID",
+        "UInt128"
+      ],
       "type": "Ask"
     },{
       "table": "account",
+      "indextype": "i64",
+      "keynames": [
+        "owner"
+      ],
+      "keytype": [
+        "AccountName"
+      ],
       "type": "Account"
     }
   ]
