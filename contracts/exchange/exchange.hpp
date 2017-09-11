@@ -43,7 +43,7 @@ namespace exchange {
    };
    static_assert( sizeof(Ask) == 32+12, "unexpected padding" );
 
-   //@abi exchange table account i64
+   //@abi exchange table i64
    struct PACKED( Account ) {
       Account( AccountName o = AccountName() ):owner(o){}
 

@@ -37,11 +37,6 @@ namespace TOKEN_NAME {
    */
    typedef eos::token<uint64_t,N(currency)> CurrencyTokens;
 
-   // union pepe {
-   //   unsigned long long a;
-   //   char b;
-   // };
-
    /**
     *  Transfer requires that the sender and receiver be the first two
     *  accounts notified and that the sender has provided authorization.
@@ -60,7 +55,6 @@ namespace TOKEN_NAME {
       *  quantity to transfer
       */
       CurrencyTokens    quantity;
-      //pepe x;
    };
 
    /**
