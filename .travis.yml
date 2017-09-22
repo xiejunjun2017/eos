@@ -14,6 +14,7 @@ addons:
       - g++-6
       - ninja-build
       - libgmp-dev
+      - libclang-4.0-dev
 before_install:
   - mkdir ext && cd ext
   - wget https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2 && tar xjf boost_1_64_0.tar.bz2
