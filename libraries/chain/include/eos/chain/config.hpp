@@ -39,6 +39,8 @@ const static int DefaultPerAuthAccount = 1800;
 const static int DefaultPerCodeAccountTimeFrameSeconds = 18;
 const static int DefaultPerCodeAccount = 18000;
 
+const static UInt32 RequiredProducerParticipation = 33 * config::Percent1;
+
 const static UInt32 DefaultMaxBlockSize = 5 * 1024 * 1024;
 const static UInt32 DefaultTargetBlockSize = 128 * 1024;
 const static UInt64 DefaultMaxStorageSize = 10 * 1024;

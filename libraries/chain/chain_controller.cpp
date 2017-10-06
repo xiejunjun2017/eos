@@ -1400,7 +1400,10 @@ void chain_controller::update_global_dynamic_data(const signed_block& b) {
          dgp.recent_slots_filled += 1;
          dgp.recent_slots_filled <<= missed_blocks;
       } else
-         dgp.recent_slots_filled = 0;
+         if(config::Percent100 * get_global_properties().active_producers.size() / config::BlocksPerRound > config::RequiredProducerParticipation)
+            dgp.recent_slots_filled = uint64_t(-1);
+         else
+            dgp.recent_slots_filled = 0;
    });
 
    _fork_db.set_max_size( _dgp.head_block_number - _dgp.last_irreversible_block_num + 1 );

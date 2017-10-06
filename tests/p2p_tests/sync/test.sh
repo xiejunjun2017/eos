@@ -62,4 +62,10 @@ if [ $lines -eq $total_nodes -a $prodsfound -eq 1 ]; then
     exit
 fi
 echo ERROR: $lines reports out of $total_nodes and prods = $prodsfound
+echo =================================================================
+echo Contents of tn_data_0/config.ini:
+cat tn_data_0/config.ini
+echo =================================================================
+echo Contents of tn_data_0/stderr.txt:
+cat tn_data_0/stderr.txt
 exit 1
