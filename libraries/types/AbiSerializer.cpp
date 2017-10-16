@@ -105,14 +105,14 @@ namespace eos { namespace types {
       actions.clear();
       tables.clear();
 
+      for( const auto& st : abi.structs )
+         structs[st.name] = st;
+
       for( const auto& td : abi.types ) {
          FC_ASSERT( isType(td.type), "invalid type", ("type",td.type));
          typedefs[td.newTypeName] = td.type;
       }
 
-      for( const auto& st : abi.structs )
-         structs[st.name] = st;
-      
       for( const auto& a : abi.actions )
          actions[a.action] = a.type;
 
