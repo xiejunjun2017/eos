@@ -6,6 +6,13 @@
 #include <eoslib/db.hpp>
 
 namespace proxy {
+   
+   //@abi proxy action
+   struct PACKED( SetOwner ) {
+      AccountName owner;	
+   };
+
+   //@abi proxy table
    struct PACKED( Config ) {
       Config( AccountName o = AccountName() ):owner(o){}
       const uint64_t     key = N(config);

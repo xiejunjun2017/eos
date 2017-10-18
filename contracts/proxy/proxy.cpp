@@ -30,18 +30,13 @@ namespace proxy {
       }
    }
 
-   void apply_setowner(AccountName owner) {
-      const auto self = current_code();
+   void apply_setowner(SetOwner params) {
+      const auto self = currentCode();
       Config config;
-      bool configured = Configs::get(config, self);
-      config.owner = owner;
-      if (configured) {
-         Configs::update(config, self);
-      } else {
-         Configs::store(config, self);
-      }
+      Configs::get(config, self);
+      config.owner = params.owner;
+      Configs::store(config, self);
    }
- 
 }
 
 using namespace proxy;
@@ -63,7 +58,7 @@ extern "C" {
           }
        } else if (code == N(proxy) ) {
           if ( action == N(setowner)) {
-             apply_setowner(current_message<AccountName>());
+             apply_setowner(currentMessage<SetOwner>());
           }
        }
     }

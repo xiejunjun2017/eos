@@ -6,7 +6,7 @@
 
 namespace exchange {
 
-   using CurrencyTokens = currency::CurrencyTokens;
+   using currency::CurrencyTokens;
    using EosTokens = eos::Tokens;
 
    //@abi exchange action cancelbuy cancelsell
