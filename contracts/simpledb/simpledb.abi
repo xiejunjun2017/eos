@@ -1,86 +1,78 @@
 {
   "types": [],
-  "structs": [
-    {
+  "structs": [{
       "name": "record1",
+      "base": "",
       "fields": {
-        "key1": "UInt64"
+        "key": "UInt64"
       }
-    },
-    {
+    },{
       "name": "record2",
+      "base": "",
       "fields": {
         "key1": "UInt128",
         "key2": "UInt128"
       }
-    },
-    {
+    },{
       "name": "record3",
+      "base": "",
       "fields": {
         "key1": "UInt64",
         "key2": "UInt64",
         "key3": "UInt64"
       }
-    },
-    {
+    },{
       "name": "KeyValue1",
+      "base": "",
       "fields": {
         "key": "String",
         "value": "String"
       }
-    },
-    {
+    },{
       "name": "ComplexType",
+      "base": "",
       "fields": {
         "name": "String",
         "age": "UInt64"
       }
-    },
-    {
+    },{
       "name": "KeyValue2",
+      "base": "",
       "fields": {
         "key": "String",
         "value": "ComplexType"
       }
     }
   ],
-  "actions": [
-    {
+  "actions": [{
       "action": "insert1",
       "type": "record1"
-    },
-    {
-      "action": "insertkv1",
-      "type": "KeyValue1"
-    },
-    {
+    },{
       "action": "insert2",
       "type": "record2"
-    },
-    {
+    },{
       "action": "insert3",
       "type": "record3"
-    },
-    {
+    },{
+      "action": "insertkv1",
+      "type": "KeyValue1"
+    },{
       "action": "insertkv2",
       "type": "KeyValue2"
     }
   ],
-  "tables": [
-    {
+  "tables": [{
       "table": "record1",
-      "type": "record1",
       "indextype": "i64",
       "keynames": [
-        "key1"
+        "key"
       ],
       "keytypes": [
         "UInt64"
-      ]
-    },
-    {
+      ],
+      "type": "record1"
+    },{
       "table": "record2",
-      "type": "record2",
       "indextype": "i128i128",
       "keynames": [
         "key1",
@@ -89,11 +81,10 @@
       "keytypes": [
         "UInt128",
         "UInt128"
-      ]
-    },
-    {
+      ],
+      "type": "record2"
+    },{
       "table": "record3",
-      "type": "record3",
       "indextype": "i64i64i64",
       "keynames": [
         "key1",
@@ -104,29 +95,28 @@
         "UInt64",
         "UInt64",
         "UInt64"
-      ]
-    },
-    {
+      ],
+      "type": "record3"
+    },{
       "table": "keyvalue1",
-      "type": "KeyValue1",
       "indextype": "str",
       "keynames": [
         "key"
       ],
       "keytypes": [
         "String"
-      ]
-    },
-    {
+      ],
+      "type": "KeyValue1"
+    },{
       "table": "keyvalue2",
-      "type": "KeyValue2",
       "indextype": "str",
       "keynames": [
         "key"
       ],
       "keytypes": [
         "String"
-      ]
+      ],
+      "type": "KeyValue2"
     }
   ]
 }

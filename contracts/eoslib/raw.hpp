@@ -1,11 +1,11 @@
 #pragma once
+#include <eoslib/types.hpp>
 #include <eoslib/varint.hpp>
 #include <eoslib/datastream.hpp>
 #include <eoslib/memory.hpp>
 
 namespace eos {
-    namespace raw {
-
+    namespace raw {    
     template<typename Stream, typename Arg0, typename... Args>
     inline void pack( Stream& s, const Arg0& a0, Args... args ) {
        pack( s, a0 );
@@ -82,9 +82,12 @@ namespace eos {
     template<typename Stream> inline void unpack( Stream& s, Bytes& value ) {
       unsigned_int size; eos::raw::unpack( s, size );
       //assert( size.value < MAX_ARRAY_ALLOC_SIZE, "unpack Bytes" );
+      
       value.len = size.value;
-      if( value.len )
+      if( value.len ) {
+        value.data = (uint8_t *)eos::malloc(value.len);
         s.read( (char *)value.data, value.len );
+      }
     }
 
     // String
@@ -98,6 +101,34 @@ namespace eos {
       unsigned_int size; eos::raw::unpack( s, size );
       v.assign(s.pos(), size.value, copy);
       s.skip(size.value);
+    }
+
+    // FixedString32
+    template<typename Stream> inline void pack( Stream& s, const FixedString32& v )  {
+      auto size = v.len;
+      eos::raw::pack( s, unsigned_int(size));
+      if( size ) s.write( v.str, size );
+    }
+
+    template<typename Stream> inline void unpack( Stream& s, FixedString32& v)  {
+      unsigned_int size; eos::raw::unpack( s, size );
+      assert(size.value <= 32, "unpack FixedString32");
+      s.read( (char *)v.str, size );
+      v.len = size;
+    }
+
+    // FixedString16
+    template<typename Stream> inline void pack( Stream& s, const FixedString16& v )  {
+      auto size = v.len;
+      eos::raw::pack( s, unsigned_int(size));
+      if( size ) s.write( v.str, size );
+    }
+
+    template<typename Stream> inline void unpack( Stream& s, FixedString16& v)  {
+      unsigned_int size; eos::raw::unpack( s, size );
+      assert(size.value <= 16, "unpack FixedString16");
+      s.read( (char *)v.str, size );
+      v.len = size;
     }
 
     // bool
@@ -140,6 +171,14 @@ namespace eos {
       eos::raw::unpack(ds,v);
       return v;
     }
+
+    template<typename Type> inline uint32_t packed_size(const Type& value) { return sizeof(Type); }
+    
+    template<> inline uint32_t packed_size<Bytes>(const Bytes& value) { return value.len+4; }
+    template<> inline uint32_t packed_size<string>(const string& value) { return value.get_size()+4; }
+    template<> inline uint32_t packed_size<FixedString16>(const FixedString16& value) { auto res=value.len+1; if(res>17) { res=17; } return res; }
+    template<> inline uint32_t packed_size<FixedString32>(const FixedString32& value) { auto res=value.len+1; if(res>33) { res=33; } return res; }
+
 
 } } // namespace eos::raw
 

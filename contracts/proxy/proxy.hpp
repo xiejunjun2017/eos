@@ -7,12 +7,12 @@
 
 namespace proxy {
    
-   //@abi proxy action
+   //@abi action
    struct PACKED( SetOwner ) {
       AccountName owner;	
    };
 
-   //@abi proxy table
+   //@abi table
    struct PACKED( Config ) {
       Config( AccountName o = AccountName() ):owner(o){}
       const uint64_t     key = N(config);

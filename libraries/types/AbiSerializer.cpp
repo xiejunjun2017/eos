@@ -53,6 +53,7 @@ namespace eos { namespace types {
      
       //native.hpp
       built_in_types.emplace("String",        packUnpack<String>());
+      built_in_types.emplace("string",        packUnpack<String>());
       built_in_types.emplace("Time",          packUnpack<Time>());
       built_in_types.emplace("Signature",     packUnpack<Signature>());
       built_in_types.emplace("Checksum",      packUnpack<Checksum>());
@@ -143,6 +144,29 @@ namespace eos { namespace types {
       if( built_in_types.find(type) != built_in_types.end() ) return true;
       if( typedefs.find(type) != typedefs.end() ) return isBuiltInType( typedefs.find(type)->second );
       return false;
+   }
+   
+   bool AbiSerializer::isStruct( const TypeName& type )const {
+      auto itr = structs.find( resolveType(type) );
+      return itr != structs.end();
+   }
+
+   bool AbiSerializer::isInteger( const TypeName& type )const {
+      auto rtype = resolveType(type);
+      return rtype == "UInt8" || rtype == "UInt16" || rtype == "UInt32" || rtype == "UInt64" \
+          || rtype == "UInt128" || rtype == "UInt256" || rtype == "Int8" || rtype == "Int16" \
+          || rtype == "Int32" || rtype == "Int64";
+   }
+   
+   int AbiSerializer::getIntegerSize( const TypeName& type )const {
+      auto rtype = string(resolveType(type));
+      FC_ASSERT( isInteger(rtype) );
+      if( boost::starts_with(rtype,"UInt") ) {
+         return boost::lexical_cast<int>(string(rtype).substr(4));
+      } else if ( boost::starts_with(rtype,"Int") ) {
+         return boost::lexical_cast<int>(string(rtype).substr(3));
+      }
+      FC_ASSERT(false);
    }
 
    bool AbiSerializer::isType( const TypeName& rtype )const {

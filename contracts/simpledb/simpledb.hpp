@@ -5,30 +5,33 @@
 #include <eoslib/eos.hpp>
 #include <eoslib/string.hpp>
 
-/* @abi simpledb action insert1
- * @abi simpledb table
+/* @abi action insert1
+ * @abi table
 */
-struct PACKED(record1) {
+struct record1 {
    uint64_t key;
 };
 
-/* @abi simpledb action insert2
- * @abi simpledb table
+/* @abi action insert2
+ * @abi table
 */
-struct PACKED(record2) {
+struct record2 {
    uint128_t key1;
    uint128_t key2;
 };
 
-/* @abi simpledb action insert3
- * @abi simpledb table
+/* @abi action insert3
+ * @abi table
 */
-struct PACKED(record3) {
+struct record3 {
    uint64_t key1;
    uint64_t key2;
    uint64_t key3;
 };
 
+/* @abi action insertkv1
+ * @abi table
+*/
 struct KeyValue1 {
    eos::string key;
    eos::string value;
@@ -39,6 +42,9 @@ struct ComplexType {
    uint64_t age;
 };
 
+/* @abi action insertkv2
+ * @abi table
+*/
 struct KeyValue2 {
    eos::string key;
    ComplexType value;

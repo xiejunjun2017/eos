@@ -41,6 +41,8 @@ struct AbiSerializer {
    bool isBuiltInType( const TypeName& type )const;
    bool isType( const TypeName& type )const;
    bool isStruct( const TypeName& type )const;
+   bool isInteger( const TypeName& type)const;
+   int getIntegerSize( const TypeName& type )const;
 
    TypeName arrayType( const TypeName& type )const;
 
